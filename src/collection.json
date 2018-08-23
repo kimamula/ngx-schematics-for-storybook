@@ -1,0 +1,12 @@
+{
+  "extends": ["@schematics/angular"],
+  "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "component": {
+      "aliases": [ "c" ],
+      "description": "Creates a component and add a story for it",
+      "factory": "./component",
+      "schema": "./component/schema.json"
+    }
+  }
+}
