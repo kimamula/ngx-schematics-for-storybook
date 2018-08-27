@@ -4,12 +4,5 @@ import { <%= classifiedName %>Component } from '<%= relativePath %>';
 
 storiesOf('<%= selector %>', module)
   .add('default', () => ({
-    component: <%= classifiedName %>Component,
-    props: {},
-    moduleMetadata: {
-      imports: [],
-      schemas: [],
-      declarations: [],
-      providers: []
-    }
+    component: <%= classifiedName %>Component
   }));
