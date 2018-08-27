@@ -1,6 +1,6 @@
 {
   "name": "ngx-schematics-for-storybook",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json",

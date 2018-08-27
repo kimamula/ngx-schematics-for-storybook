@@ -17,6 +17,8 @@ $ yarn add ngx-schematics-for-storybook @storybook/cli --dev
 $ yarn run getstorybook
 ```
 
+Note that you need @storybook/cli>=4.0.0-alpha.9 for angular-cli 6 support.
+
 ## Configure
 
 To use ngx-schematics-for-storybook as the default collection in your Angular CLI project, add it to your angular.json:
