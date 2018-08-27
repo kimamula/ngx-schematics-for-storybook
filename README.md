@@ -31,7 +31,7 @@ The ngx-schematics-for-storybook extend the default @schematics/angular collecti
 
 ```json
 "schematics": {
-  "ngx-schematics-for-storybook": {
+  "ngx-schematics-for-storybook:component": {
     "styleext": "scss"
   }
 }
