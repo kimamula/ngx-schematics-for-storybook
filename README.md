@@ -2,6 +2,10 @@
 
 Angular schematics which automatically adds new components created with `ng generate component` to the [Storybook](https://storybook.js.org/).
 
+[![Build Status][travis-image]][travis-url]
+[![NPM version][npm-image]][npm-url]
+[![Downloads](https://img.shields.io/npm/dm/ngx-schematics-for-storybook.svg)](https://www.npmjs.com/package/ngx-schematics-for-storybook)
+
 ## Setup
 
 ```sh
@@ -57,3 +61,8 @@ All the options for the ordinary `ng generate component` is available, as well a
 
 - `--noStory`
   - avoid creating a `.stories.ts` file and updating `.storybook/config.js`
+
+[travis-image]:https://travis-ci.org/kimamula/ngx-schematics-for-storybook.svg?branch=master
+[travis-url]:https://travis-ci.org/kimamula/ngx-schematics-for-storybook
+[npm-image]:https://img.shields.io/npm/v/ngx-schematics-for-storybook.svg?style=flat
+[npm-url]:https://npmjs.org/package/ngx-schematics-for-storybook
