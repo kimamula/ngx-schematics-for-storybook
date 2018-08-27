@@ -66,9 +66,6 @@ All the options for the ordinary `ng generate component` is available, as well a
 
 MIT
 
-- `--noStory`
-  - avoid creating a `.stories.ts` file and updating `.storybook/config.js`
-
 [travis-image]:https://travis-ci.org/kimamula/ngx-schematics-for-storybook.svg?branch=master
 [travis-url]:https://travis-ci.org/kimamula/ngx-schematics-for-storybook
 [npm-image]:https://img.shields.io/npm/v/ngx-schematics-for-storybook.svg?style=flat
