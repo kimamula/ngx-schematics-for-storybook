@@ -59,6 +59,9 @@ In addition to the ordinary [`ng generate component`](https://github.com/angular
 
 All the options for the ordinary `ng generate component` is available, as well as:
 
+- `--noStory`
+  - avoid creating a `.stories.ts` file and updating `.storybook/config.js`
+
 # License
 
 MIT
