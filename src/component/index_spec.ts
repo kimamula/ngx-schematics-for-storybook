@@ -31,7 +31,7 @@ describe('component', () => {
 import { action } from '@storybook/addon-actions';
 import { BarComponent } from '../../../app/foo/bar/bar.component';
 
-storiesOf('foo/app-bar', module)
+storiesOf('foo/BarComponent', module)
   .add('default', () => ({
     component: BarComponent
   }));`);
@@ -41,9 +41,20 @@ storiesOf('foo/app-bar', module)
     expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 
-storiesOf('foo/app-bar', module)
+storiesOf('foo/BarComponent', module)
   .add('default', () => ({
     template: \`<app-bar></app-bar>\`
+  }));`);
+  });
+  it('should create stories for a component witch labeled with its tag string', () => {
+    const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', tagAsLabel: true }, appTree);
+    expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { BarComponent } from '../../../app/foo/bar/bar.component';
+
+storiesOf('foo/<app-bar>', module)
+  .add('default', () => ({
+    component: BarComponent
   }));`);
   });
   it('should not create stories for a component if noStory option is passed', () => {

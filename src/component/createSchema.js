@@ -17,7 +17,12 @@ writeFileSync(join(__dirname, 'schema.json'), JSON.stringify({
     useTemplate: {
       type: 'boolean',
       default: false,
-      description: 'Uses a template string (e.g. `template: \`<app-foo><app-foo>\``) instead of a component class (e.g. `component: FooComponent`) in the storybook'
+      description: 'Uses a template string (e.g. ``template: `<app-foo></app-foo>` ``) instead of a component class (e.g. `component: FooComponent`) in the storybook'
+    },
+    tagAsLabel: {
+      type: 'boolean',
+      default: false,
+      description: 'Uses a tag string (e.g. `<app-foo>`) as a label instead of a component class name (e.g. `FooComponent`) in the storybook'
     }
   }
 }, null, 2));

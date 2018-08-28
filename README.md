@@ -65,6 +65,8 @@ All the options for the ordinary `ng generate component` is available, as well a
   - Skips creating a story for the created component
 - `--useTemplate`
   - Uses a template string (e.g. ``template: `<app-foo></app-foo>` ``) instead of a component class (e.g. `component: FooComponent`) in the storybook
+- `--tagAsLabel`
+  - Uses a tag string (e.g. `<app-foo>`) as a label instead of a component class name (e.g. `FooComponent`) in the storybook
 
 # License
 
