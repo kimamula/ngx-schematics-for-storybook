@@ -40,7 +40,6 @@ storiesOf('foo/app-bar', module)
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', useTemplate: true }, appTree);
     expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { BarComponent } from '../../../app/foo/bar/bar.component';
 
 storiesOf('foo/app-bar', module)
   .add('default', () => ({
