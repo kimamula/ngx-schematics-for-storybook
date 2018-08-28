@@ -72,7 +72,7 @@ export default function (options: Schema): Rule {
   if (options.noStory) {
     return externalSchematic('@schematics/angular', 'component', options);
   }
-  return (host: Tree) => {``
+  return (host: Tree) => {
     const workspace = getWorkspace(host);
     const project = workspace.projects[options.project!];
     const { path: componentPath, name } = parseName(
