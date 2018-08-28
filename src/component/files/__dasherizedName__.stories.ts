@@ -4,5 +4,5 @@ import { <%= classifiedName %>Component } from '<%= relativePath %>';
 
 storiesOf('<%= hierarchy %><%= selector %>', module)
   .add('default', () => ({
-    component: <%= classifiedName %>Component
+    <% if (useTemplate) { %>template: `<<%= selector %>></<%= selector %>>`<% } if (!useTemplate) { %>component: <%= classifiedName %>Component<% } %>
   }));

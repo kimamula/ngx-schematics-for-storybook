@@ -62,7 +62,9 @@ In addition to the ordinary [`ng generate component`](https://github.com/angular
 All the options for the ordinary `ng generate component` is available, as well as:
 
 - `--noStory`
-  - avoid creating a `.stories.ts` file and updating `.storybook/config.js`
+  - Skips creating a story for the created component
+- `--useTemplate`
+  - Uses a template string (e.g. ``template: `<app-foo></app-foo>` ``) instead of a component class (e.g. `component: FooComponent`) in the storybook
 
 # License
 
