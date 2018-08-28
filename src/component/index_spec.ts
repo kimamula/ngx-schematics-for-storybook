@@ -12,7 +12,7 @@ describe('component', () => {
     version: '6.0.0',
   };
   const appOptions = {
-    name: 'bar',
+    name: 'baz',
     inlineStyle: false,
     inlineTemplate: false,
     routing: false,
@@ -26,11 +26,18 @@ describe('component', () => {
     appTree = runner.runSchematic('application', appOptions, appTree);
   });
   it('should create stories for a component', () => {
-    const tree = runner.runSchematic('component', { name: 'foo', project: 'bar' }, appTree);
-    expect(tree.files.indexOf('/projects/bar/src/stories/foo/foo.stories.ts') >= 0).toBe(true);
+    const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz' }, appTree);
+    expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { BarComponent } from '../../../app/foo/bar/bar.component';
+
+storiesOf('foo/app-bar', module)
+  .add('default', () => ({
+    component: BarComponent
+  }));`);
   });
   it('should not create stories for a component if noStory option is passed', () => {
-    const tree = runner.runSchematic('component', { name: 'foo', project: 'bar', noStory: true }, appTree);
-    expect(tree.files.indexOf('/projects/bar/src/stories/foo/foo.stories.ts') >= 0).toBe(false);
+    const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', noStory: true }, appTree);
+    expect(tree.files.indexOf('/projects/baz/src/stories/foo/bar/bar.stories.ts') >= 0).toBe(false);
   });
 });
