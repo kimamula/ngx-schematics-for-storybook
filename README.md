@@ -27,7 +27,7 @@ To use ngx-schematics-for-storybook as the default collection in your Angular CL
 ng config cli.defaultCollection ngx-schematics-for-storybook
 ```
 
-The ngx-schematics-for-storybook extend the default @schematics/angular collection. If you want to set defaults for schematics such as generating components with scss file, you must change the schematics package name from @schematics/angular to in angular.json:
+The ngx-schematics-for-storybook extend the default @schematics/angular collection. If you want to set defaults for schematics such as generating components with scss file, you must change the schematics package name from @schematics/angular to ngx-schematics-for-storybook in angular.json:
 
 ```json
 "schematics": {
