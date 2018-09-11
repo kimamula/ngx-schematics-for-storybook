@@ -1,6 +1,6 @@
 {
   "name": "ngx-schematics-for-storybook",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Angular schematics which automatically adds new components created with `ng generate component` to the [Storybook](https://storybook.js.org/)",
   "scripts": {
     "build": "tsc -p tsconfig.json",
