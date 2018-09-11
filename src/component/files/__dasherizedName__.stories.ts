@@ -1,5 +1,4 @@
-import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';<% if (!useTemplate) { %>
+import { storiesOf } from '@storybook/angular';<% if (!useTemplate) { %>
 import { <%= classifiedName %>Component } from '<%= relativePath %>';<% } %>
 
 storiesOf('<%= hierarchy %><% if (tagAsLabel) { %><<%= selector %>><% } if (!tagAsLabel) { %><%= classifiedName %>Component<% } %>', module)

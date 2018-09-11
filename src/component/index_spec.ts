@@ -28,7 +28,6 @@ describe('component', () => {
   it('should create stories for a component', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz' }, appTree);
     expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import { BarComponent } from '../../../app/foo/bar/bar.component';
 
 storiesOf('foo/BarComponent', module)
@@ -39,7 +38,6 @@ storiesOf('foo/BarComponent', module)
   it('should create stories for a component using template', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', useTemplate: true }, appTree);
     expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 
 storiesOf('foo/BarComponent', module)
   .add('default', () => ({
@@ -49,7 +47,6 @@ storiesOf('foo/BarComponent', module)
   it('should create stories for a component witch labeled with its tag string', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', tagAsLabel: true }, appTree);
     expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import { BarComponent } from '../../../app/foo/bar/bar.component';
 
 storiesOf('foo/<app-bar>', module)
