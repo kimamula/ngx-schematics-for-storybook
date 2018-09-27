@@ -39,6 +39,8 @@ function buildSelector(name: string, prefix?: string, projectPrefix?: string) {
 }
 
 function createStory(options: ExtendedOptions): Rule {
+  const hierarchy = options.name.substr(0, options.name.lastIndexOf('/') + 1);
+  const lastPath = options.tagAsLabel ? `<${options.selector}>` : `${options.classifiedName}Component`;
   return mergeWith(apply(url('./files'), [
     template({
       ...options,
@@ -46,7 +48,11 @@ function createStory(options: ExtendedOptions): Rule {
         `${options.storyDir}/${options.dasherizedName}.stories`,
         `${options.componentDir}/${options.dasherizedName}.component`
       ),
-      hierarchy: options.name.substr(0, options.name.lastIndexOf('/') + 1)
+      label: options.replaceLabel
+        ? Object
+            .keys(options.replaceLabel)
+            .reduce((label, key) => label.replace(new RegExp(key), options.replaceLabel![key]), hierarchy + lastPath)
+        : hierarchy + lastPath
     }),
     move(options.storyDir)
   ]));

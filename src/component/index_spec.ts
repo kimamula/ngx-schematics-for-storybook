@@ -54,6 +54,28 @@ storiesOf('foo/<app-bar>', module)
     component: BarComponent
   }));`);
   });
+  it(`should replace the story's label if options.replaceLabel is given`, () => {
+    const tree = runner.runSchematic(
+      'component',
+      {
+        name: 'foo/bar',
+        project: 'baz',
+        replaceLabel: {
+          '^[^/]+/': 'abc/',
+          '/([^/]+)Component$': '/$1',
+          'fooooooooooooooooooooooo': 'barrrrrrrrrrrrrrrr'
+        }
+      },
+      appTree
+    );
+    expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+import { BarComponent } from '../../../app/foo/bar/bar.component';
+
+storiesOf('abc/Bar', module)
+  .add('default', () => ({
+    component: BarComponent
+  }));`);
+  });
   it('should not create stories for a component if noStory option is passed', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', noStory: true }, appTree);
     expect(tree.files.indexOf('/projects/baz/src/stories/foo/bar/bar.stories.ts') >= 0).toBe(false);

@@ -23,6 +23,11 @@ writeFileSync(join(__dirname, 'schema.json'), JSON.stringify({
       type: 'boolean',
       default: false,
       description: 'Uses a tag string (e.g. `<app-foo>`) as a label instead of a component class name (e.g. `FooComponent`) in the storybook'
+    },
+    replaceLabel: {
+      type: 'object',
+      default: {},
+      description: 'Provides a map object whose keys are regular expressions and whose values are strings which are used to replace labels in the storybook with `String.prototype.replace`'
     }
   }
 }, null, 2));
