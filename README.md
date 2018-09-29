@@ -67,8 +67,8 @@ All the options for the ordinary `ng generate component` is available, as well a
   - Uses a template string (e.g. ``template: `<app-foo></app-foo>` ``) instead of a component class (e.g. `component: FooComponent`) in the storybook
 - `--tagAsLabel`
   - Uses a tag string (e.g. `<app-foo>`) as a label instead of a component class name (e.g. `FooComponent`) in the storybook
-- `--replaceLabel`
-  - Provides a map object whose keys are regular expressions and whose values are strings which are used to replace labels in the storybook with `String.prototype.replace`
+- `--replacePath`
+  - Replaces the path of the story with a stringified array of `{ from: string, to: string }` which is to be used as `path.replace(new RegExp(from), to)`
 
 # License
 

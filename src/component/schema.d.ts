@@ -4,5 +4,5 @@ export interface Schema extends OriginalSchema {
   noStory?: boolean;
   useTemplate?: boolean;
   tagAsLabel?: boolean;
-  replaceLabel?: { [regex: string]: string };
+  replacePath: string; // which should be stringified form of { from: string, to: string }[];
 }

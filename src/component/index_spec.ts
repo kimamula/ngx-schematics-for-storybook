@@ -27,8 +27,8 @@ describe('component', () => {
   });
   it('should create stories for a component', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz' }, appTree);
-    expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
-import { BarComponent } from '../../../app/foo/bar/bar.component';
+    expect(tree.readContent('/projects/baz/src/stories/foo/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+import { BarComponent } from '../../app/foo/bar/bar.component';
 
 storiesOf('foo/BarComponent', module)
   .add('default', () => ({
@@ -37,7 +37,7 @@ storiesOf('foo/BarComponent', module)
   });
   it('should create stories for a component using template', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', useTemplate: true }, appTree);
-    expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+    expect(tree.readContent('/projects/baz/src/stories/foo/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
 
 storiesOf('foo/BarComponent', module)
   .add('default', () => ({
@@ -46,38 +46,39 @@ storiesOf('foo/BarComponent', module)
   });
   it('should create stories for a component witch labeled with its tag string', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', tagAsLabel: true }, appTree);
-    expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
-import { BarComponent } from '../../../app/foo/bar/bar.component';
+    expect(tree.readContent('/projects/baz/src/stories/foo/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+import { BarComponent } from '../../app/foo/bar/bar.component';
 
 storiesOf('foo/<app-bar>', module)
   .add('default', () => ({
     component: BarComponent
   }));`);
   });
-  it(`should replace the story's label if options.replaceLabel is given`, () => {
+  it(`should replace the story's path if options.replacePath is given`, () => {
     const tree = runner.runSchematic(
       'component',
       {
         name: 'foo/bar',
         project: 'baz',
-        replaceLabel: {
-          '^[^/]+/': 'abc/',
-          '/([^/]+)Component$': '/$1',
-          'fooooooooooooooooooooooo': 'barrrrrrrrrrrrrrrr'
-        }
+        replacePath: JSON.stringify([
+          { from: '^foo/', to: 'abc/def/' },
+          { from: '^([^/]+)/', to: '$1$1/' },
+          { from: 'fooooooooooooooooooooooo', to: 'barrrrrrrrrrrrrrrr' }
+        ])
       },
       appTree
     );
-    expect(tree.readContent('/projects/baz/src/stories/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+    expect(tree.files.indexOf('/projects/baz/src/stories/foo/bar.stories.ts') >= 0).toBe(false);
+    expect(tree.readContent('/projects/baz/src/stories/abcabc/def/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
 import { BarComponent } from '../../../app/foo/bar/bar.component';
 
-storiesOf('abc/Bar', module)
+storiesOf('abcabc/def/BarComponent', module)
   .add('default', () => ({
     component: BarComponent
   }));`);
   });
   it('should not create stories for a component if noStory option is passed', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', noStory: true }, appTree);
-    expect(tree.files.indexOf('/projects/baz/src/stories/foo/bar/bar.stories.ts') >= 0).toBe(false);
+    expect(tree.files.indexOf('/projects/baz/src/stories/foo/bar.stories.ts') >= 0).toBe(false);
   });
 });

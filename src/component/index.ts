@@ -24,7 +24,7 @@ interface ExtendedOptions extends Schema {
   componentDir: string;
   dasherizedName: string;
   classifiedName: string;
-  selector: string;
+  storyNameSpace: string;
   storyDir: string;
 }
 
@@ -39,7 +39,6 @@ function buildSelector(name: string, prefix?: string, projectPrefix?: string) {
 }
 
 function createStory(options: ExtendedOptions): Rule {
-  const hierarchy = options.name.substr(0, options.name.lastIndexOf('/') + 1);
   const lastPath = options.tagAsLabel ? `<${options.selector}>` : `${options.classifiedName}Component`;
   return mergeWith(apply(url('./files'), [
     template({
@@ -48,11 +47,7 @@ function createStory(options: ExtendedOptions): Rule {
         `${options.storyDir}/${options.dasherizedName}.stories`,
         `${options.componentDir}/${options.dasherizedName}.component`
       ),
-      label: options.replaceLabel
-        ? Object
-            .keys(options.replaceLabel)
-            .reduce((label, key) => label.replace(new RegExp(key), options.replaceLabel![key]), hierarchy + lastPath)
-        : hierarchy + lastPath
+      label: `${options.storyNameSpace}/${lastPath}`
     }),
     move(options.storyDir)
   ]));
@@ -86,13 +81,19 @@ export default function (options: Schema): Rule {
       options.path === undefined ? buildDefaultPath(project) : options.path,
       options.name
     );
-    const { path: storyPath } = parseName(`/${buildDefaultPath(project)}/../stories`, options.name);
+    const replacePath: { from: string, to: string }[] = JSON.parse(options.replacePath);
+    const storyPath = replacePath.reduce(
+      (storyPath, { from, to }) => storyPath.replace(new RegExp(from), to),
+      options.name
+    );
+    const { path: storyDir } = parseName(`/${buildDefaultPath(project)}/../stories`, storyPath);
     const dasherizedName = strings.dasherize(name);
     const classifiedName = strings.classify(name);
     const extendedOptions = {
       ...options,
       componentDir: options.flat ? componentPath : `${componentPath}/${dasherizedName}`,
-      storyDir: options.flat ? storyPath : `${storyPath}/${dasherizedName}`,
+      storyDir,
+      storyNameSpace: storyPath.substr(0, storyPath.lastIndexOf('/')),
       dasherizedName,
       classifiedName,
       selector: options.selector || buildSelector(name, options.prefix, project.prefix)
