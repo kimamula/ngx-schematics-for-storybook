@@ -86,12 +86,15 @@ export default function (options: Schema): Rule {
       (storyPath, { from, to }) => storyPath.replace(new RegExp(from), to),
       options.name
     );
-    const { path: storyDir } = parseName(`/${buildDefaultPath(project)}/../stories`, storyPath);
     const dasherizedName = strings.dasherize(name);
     const classifiedName = strings.classify(name);
+    const componentDir = options.flat ? componentPath : `${componentPath}/${dasherizedName}`;
+    const { path: storyDir } = options.useComponentDir
+      ? { path: componentDir }
+      : parseName(`/${buildDefaultPath(project)}/../stories`, storyPath);
     const extendedOptions = {
       ...options,
-      componentDir: options.flat ? componentPath : `${componentPath}/${dasherizedName}`,
+      componentDir,
       storyDir,
       storyNameSpace: storyPath.substr(0, storyPath.lastIndexOf('/')),
       dasherizedName,

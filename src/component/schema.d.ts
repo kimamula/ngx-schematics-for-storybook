@@ -5,4 +5,5 @@ export interface Schema extends OriginalSchema {
   useTemplate?: boolean;
   tagAsLabel?: boolean;
   replacePath: string; // which should be stringified form of { from: string, to: string }[];
+  useComponentDir?: boolean;
 }

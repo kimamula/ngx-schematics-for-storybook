@@ -28,6 +28,11 @@ writeFileSync(join(__dirname, 'schema.json'), JSON.stringify({
       type: 'string',
       default: '[]',
       description: 'Replaces the path of the story with a stringified array of `{ from: string, to: string }` which is to be used as `path.replace(new RegExp(from), to)`'
+    },
+    useComponentDir: {
+      type: 'boolean',
+      default: false,
+      description: 'Use the same dir as the component instead of the stories dir'
     }
   }
 }, null, 2));

@@ -77,6 +77,50 @@ storiesOf('abcabc/def/BarComponent', module)
     component: BarComponent
   }));`);
   });
+  it(`should use the same dir as components if useComponentDir is true`, () => {
+    const tree = runner.runSchematic(
+      'component',
+      {
+        name: 'foo/bar',
+        project: 'baz',
+        useComponentDir: true
+      },
+      appTree
+    );
+    expect(tree.files.indexOf('/projects/baz/src/stories/foo/bar.stories.ts') >= 0).toBe(false);
+    expect(tree.readContent('/projects/baz/src/app/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+import { BarComponent } from './bar.component';
+
+storiesOf('foo/BarComponent', module)
+  .add('default', () => ({
+    component: BarComponent
+  }));`);
+  });
+  it(`should use the same dir as components if useComponentDir is true and replacePath is set`, () => {
+    const tree = runner.runSchematic(
+      'component',
+      {
+        name: 'foo/bar',
+        project: 'baz',
+        replacePath: JSON.stringify([
+          { from: '^foo/', to: 'abc/def/' },
+          { from: '^([^/]+)/', to: '$1$1/' },
+          { from: 'fooooooooooooooooooooooo', to: 'barrrrrrrrrrrrrrrr' }
+        ]),
+        useComponentDir: true
+      },
+      appTree
+    );
+    expect(tree.files.indexOf('/projects/baz/src/stories/foo/bar.stories.ts') >= 0).toBe(false);
+    expect(tree.files.indexOf('/projects/baz/src/stories/abcabc/def/bar.stories.ts') >= 0).toBe(false);
+    expect(tree.readContent('/projects/baz/src/app/foo/bar/bar.stories.ts')).toBe(`import { storiesOf } from '@storybook/angular';
+import { BarComponent } from './bar.component';
+
+storiesOf('abcabc/def/BarComponent', module)
+  .add('default', () => ({
+    component: BarComponent
+  }));`);
+  });
   it('should not create stories for a component if noStory option is passed', () => {
     const tree = runner.runSchematic('component', { name: 'foo/bar', project: 'baz', noStory: true }, appTree);
     expect(tree.files.indexOf('/projects/baz/src/stories/foo/bar.stories.ts') >= 0).toBe(false);

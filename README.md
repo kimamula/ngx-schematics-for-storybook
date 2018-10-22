@@ -69,6 +69,8 @@ All the options for the ordinary `ng generate component` is available, as well a
   - Uses a tag string (e.g. `<app-foo>`) as a label instead of a component class name (e.g. `FooComponent`) in the storybook
 - `--replacePath`
   - Replaces the path of the story with a stringified array of `{ from: string, to: string }` which is to be used as `path.replace(new RegExp(from), to)`
+- `--useComponentDir`
+  - Use the same dir as the component instead of the stories dir
 
 # License
 
