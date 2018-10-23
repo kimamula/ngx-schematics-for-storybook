@@ -15,10 +15,6 @@ import { parseName } from '@schematics/angular/utility/parse-name';
 import { getWorkspace } from '@schematics/angular/utility/config';
 import { buildDefaultPath } from '@schematics/angular/utility/project';
 import { buildRelativePath } from '@schematics/angular/utility/find-module';
-import {
-  storybookConfigPath,
-  updateStorybookConfig
-} from '../utils/storybookConfig';
 
 interface ExtendedOptions extends Schema {
   componentDir: string;
@@ -51,23 +47,6 @@ function createStory(options: ExtendedOptions): Rule {
     }),
     move(options.storyDir)
   ]));
-}
-
-function addDeclarationToStorybook(options: ExtendedOptions): Rule {
-  return (host: Tree) => {
-    if (!host.exists(storybookConfigPath)) {
-      return host;
-    }
-    host.overwrite(storybookConfigPath, updateStorybookConfig(
-      host.read(storybookConfigPath)!.toString('utf-8'),
-      `${options.classifiedName}Component`,
-      buildRelativePath(
-        storybookConfigPath,
-        `${options.componentDir}/${options.dasherizedName}.component`
-      )
-    ));
-    return host;
-  };
 }
 
 export default function (options: Schema): Rule {
@@ -103,8 +82,7 @@ export default function (options: Schema): Rule {
     };
     return chain([
       externalSchematic('@schematics/angular', 'component', options),
-      createStory(extendedOptions),
-      addDeclarationToStorybook(extendedOptions)
+      createStory(extendedOptions)
     ]);
   }
 }

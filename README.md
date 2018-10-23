@@ -48,16 +48,12 @@ CREATE src/app/foo/foo.component.spec.ts (607 bytes)
 CREATE src/app/foo/foo.component.ts (258 bytes)
 CREATE src/stories/foo/foo.stories.ts (376 bytes)
 UPDATE src/app/app.module.ts (481 bytes)
-UPDATE .storybook/config.js (383 bytes)
 
 # if you do not use ngx-schematics-for-storybook as the default collection
 $ ng generate ngx-schematics-for-storybook:component foo 
 ```
 
-In addition to the ordinary [`ng generate component`](https://github.com/angular/angular-cli/wiki/generate-component), the above command
-
-1. generates a `.stories.ts` file for the created component
-1. updates `.storybook/config.js` so that the created component can be used everywhere in the storybook
+In addition to the ordinary [`ng generate component`](https://github.com/angular/angular-cli/wiki/generate-component), the above command generates a `.stories.ts` file for the created component.
 
 All the options for the ordinary `ng generate component` is available, as well as:
 
